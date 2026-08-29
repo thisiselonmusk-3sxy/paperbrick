@@ -1,0 +1,33 @@
+.frame {
+  position: relative;
+  background: var(--surface-dark);
+}
+
+.frame video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.frame button {
+  position: absolute;
+  right: var(--spacing-24);
+  bottom: var(--spacing-24);
+  min-width: 104px;
+  min-height: 44px;
+  border: 1px solid var(--color-bone);
+  border-radius: var(--radius-buttons);
+  background: rgba(30, 30, 30, 0.82);
+  color: var(--color-bone);
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-ui);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .frame button {
+    right: var(--spacing-12);
+    bottom: var(--spacing-12);
+  }
+}

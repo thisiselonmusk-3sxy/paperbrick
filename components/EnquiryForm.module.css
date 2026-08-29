@@ -1,0 +1,96 @@
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px var(--spacing-24);
+}
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.field label {
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-bottom: 1px solid var(--color-obsidian);
+  border-radius: 0;
+  background: transparent;
+  font-size: 16px;
+  outline: 0;
+}
+
+.field textarea {
+  resize: vertical;
+  padding-block: var(--spacing-8);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-bottom-width: 2px;
+}
+
+.field [aria-invalid="true"] {
+  border-bottom-style: dashed;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.error {
+  position: absolute;
+  top: 100%;
+  padding-top: var(--spacing-4);
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.02em;
+}
+
+.note {
+  align-self: center;
+  max-width: 420px;
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+}
+
+.submit {
+  justify-self: end;
+  min-height: 44px;
+  border: 1px solid var(--surface-dark);
+  border-radius: var(--radius-buttons);
+  padding-inline: var(--spacing-24);
+  background: var(--surface-dark);
+  color: var(--color-bone);
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-ui);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: 1;
+  }
+
+  .submit {
+    justify-self: stretch;
+  }
+}

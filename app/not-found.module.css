@@ -1,0 +1,27 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80svh;
+  width: min(calc(100% - 48px), var(--page-max-width));
+  margin-inline: auto;
+  padding-top: 72px;
+}
+
+.main h1 {
+  max-width: 840px;
+  margin-top: var(--spacing-24);
+  font-size: clamp(48px, 10vw, 112px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.main a {
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
+  margin-top: 48px;
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-ui);
+  text-transform: uppercase;
+}

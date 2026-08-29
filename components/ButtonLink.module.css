@@ -1,0 +1,27 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border: 1px solid var(--color-obsidian);
+  border-radius: var(--radius-buttons);
+  padding: var(--spacing-8) var(--spacing-24);
+  background: transparent;
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-ui);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transition: opacity 180ms ease;
+}
+
+.button:hover {
+  opacity: 0.58;
+}
+
+.dark {
+  border-color: var(--surface-dark);
+  background: var(--surface-dark);
+  color: var(--color-bone);
+}

@@ -1,0 +1,133 @@
+.header {
+  position: fixed;
+  z-index: 100;
+  inset: 0 0 auto;
+  height: 72px;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.overlay {
+  border-bottom: 1px solid transparent;
+  background: transparent;
+}
+
+.solid {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+  background: var(--surface-canvas);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 48px);
+  height: 100%;
+  margin-inline: auto;
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+}
+
+.desktopNav a {
+  position: relative;
+  display: grid;
+  min-height: 44px;
+  place-items: center;
+}
+
+.desktopNav a::after {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.desktopNav a:hover::after,
+.desktopNav a[aria-current="page"]::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.menuButton {
+  display: none;
+  min-width: 64px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+}
+
+.mobileMenu {
+  position: fixed;
+  z-index: -1;
+  inset: 72px 0 0;
+  visibility: hidden;
+  background: var(--surface-canvas);
+  opacity: 0;
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.mobileMenuOpen {
+  visibility: visible;
+  opacity: 1;
+}
+
+.mobileMenu nav {
+  padding: 40px 16px 0;
+}
+
+.mobileMenu a {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: baseline;
+  min-height: 72px;
+  border-top: 1px solid var(--color-obsidian);
+  padding-block: 20px;
+  font-size: var(--text-subheading);
+  text-transform: uppercase;
+}
+
+.mobileMenu a:last-child {
+  border-bottom: 1px solid var(--color-obsidian);
+}
+
+.menuLocation {
+  position: absolute;
+  bottom: 24px;
+  left: 16px;
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .inner {
+    width: calc(100% - 32px);
+  }
+
+  .desktopNav {
+    display: none;
+  }
+
+  .menuButton {
+    display: block;
+  }
+}

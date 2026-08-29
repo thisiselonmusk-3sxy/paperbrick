@@ -1,0 +1,31 @@
+.meta {
+  margin: 0;
+  border-top: 1px solid var(--color-obsidian);
+}
+
+.meta > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 2fr;
+  gap: var(--spacing-24);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.55);
+  padding-block: var(--spacing-12);
+}
+
+.meta dt {
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+}
+
+.meta dd {
+  margin: 0;
+  font-size: var(--text-body);
+}
+
+@media (max-width: 480px) {
+  .meta > div {
+    grid-template-columns: 112px 1fr;
+    gap: var(--spacing-12);
+  }
+}
