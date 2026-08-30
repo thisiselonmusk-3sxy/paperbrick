@@ -1,5 +1,6 @@
 .frame {
   position: relative;
+  overflow: hidden;
   background: var(--surface-dark);
 }
 
@@ -8,6 +9,9 @@
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
+
+.annotation { position: absolute; bottom: var(--spacing-24); left: var(--spacing-24); color: var(--color-bone); font-family: var(--font-matter-mono); font-size: var(--text-caption); letter-spacing: var(--tracking-caption); text-transform: uppercase; transition: opacity var(--motion-fast) var(--ease-standard); }
+.playing .annotation { opacity: 0.28; }
 
 .frame button {
   position: absolute;
@@ -23,11 +27,20 @@
   font-size: var(--text-ui);
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  overflow: hidden;
+  transition: background-color var(--motion-fast) var(--ease-standard), color var(--motion-fast) var(--ease-standard);
 }
+.frame button::before { position: absolute; inset: 0; background: var(--color-bone); content: ""; transform: translateX(-102%); transition: transform var(--motion-fast) var(--ease-out); }
+.frame button span { position: relative; z-index: 1; }
+.frame button:hover,
+.frame button:focus-visible { color: var(--surface-dark); }
+.frame button:hover::before,
+.frame button:focus-visible::before { transform: translateX(0); }
 
 @media (max-width: 767px) {
   .frame button {
     right: var(--spacing-12);
     bottom: var(--spacing-12);
   }
+  .annotation { top: var(--spacing-12); bottom: auto; left: var(--spacing-12); }
 }

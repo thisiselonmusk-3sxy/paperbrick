@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  height: 100svh;
+  height: 100dvh;
   min-height: 0;
   overflow: hidden;
   background: var(--color-ash);
@@ -268,7 +268,7 @@
   .chapterMeta { max-width: 36ch; }
   .actions { flex-direction: column; align-items: flex-start; }
   .spatialLabels span:nth-child(n+4) { display: none; }
-  .orbitNavigation { right: 16px; bottom: 14px; left: 16px; justify-content: space-between; transform: none; }
+  .orbitNavigation { right: 16px; bottom: max(14px, env(safe-area-inset-bottom)); left: 16px; justify-content: space-between; transform: none; }
   .selectorDot { width: 28px; height: 44px; }
   .nextButton { min-height: 44px; }
   .scrollCue { display: none; }

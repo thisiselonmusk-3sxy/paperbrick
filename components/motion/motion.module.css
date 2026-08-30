@@ -1,0 +1,89 @@
+.controller { display: none; }
+
+.plate {
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-ash);
+  color: var(--color-obsidian);
+  pointer-events: none;
+  transform-origin: top;
+}
+
+.plateInitial { animation: plate-exit 680ms var(--ease-cinematic) forwards; }
+.plateRoute { animation: plate-exit 400ms var(--ease-cinematic) forwards; }
+
+.plateHorizontal,
+.plateVertical {
+  position: absolute;
+  display: block;
+  background: currentColor;
+  opacity: 0.48;
+}
+
+.plateHorizontal {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+  animation: plate-draw-x 360ms var(--ease-out) both;
+}
+
+.plateVertical {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  animation: plate-draw-y 360ms 80ms var(--ease-out) both;
+}
+
+.plateMark {
+  position: absolute;
+  top: calc(50% + 16px);
+  left: calc(50% + 16px);
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-ui);
+  letter-spacing: var(--tracking-caption);
+  animation: plate-mark 260ms 180ms var(--ease-out) both;
+}
+
+@keyframes plate-exit {
+  0%, 58% { clip-path: inset(0); visibility: visible; }
+  100% { clip-path: inset(0 0 100% 0); visibility: hidden; }
+}
+
+@keyframes plate-draw-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes plate-draw-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes plate-mark { from { transform: translateY(8px); } to { transform: translateY(0); } }
+
+.motionLink {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.motionLink::after {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.motionLink:hover::after,
+.motionLink:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+.motionLink span { transition: transform var(--motion-fast) var(--ease-out); }
+.motionLink:hover span,
+.motionLink:focus-visible span { transform: translateX(4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .plate { display: none; }
+}

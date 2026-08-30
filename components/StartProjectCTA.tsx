@@ -7,12 +7,13 @@ import styles from "./StartProjectCTA.module.css";
 
 export function StartProjectCTA({ sourcePage }: { sourcePage: string }) {
   return (
-    <section className={styles.cta} aria-labelledby="start-project-title">
+    <section className={styles.cta} aria-labelledby="start-project-title" data-reveal="section">
+      <span className={styles.surface} aria-hidden="true" />
       <div className={styles.inner}>
-        <p className="mono-label">Project enquiry</p>
-        <h2 id="start-project-title">Start a project</h2>
-        <p className={styles.copy}>Tell us about your site, brief, or interior.</p>
-        <div className={styles.actions}>
+        <p className="mono-label" data-reveal="text">Project enquiry</p>
+        <h2 id="start-project-title" data-reveal="text">Start a project</h2>
+        <p className={styles.copy} data-reveal="text">Tell us about your site, brief, or interior.</p>
+        <div className={styles.actions} data-reveal="stagger">
           <ButtonLink
             href={makeWhatsAppUrl()}
             dark

@@ -3,7 +3,7 @@
   z-index: 100;
   inset: 0 0 auto;
   height: 72px;
-  transition: background-color 200ms ease, border-color 200ms ease;
+  transition: background-color var(--motion-instant) var(--ease-standard), border-color var(--motion-instant) var(--ease-standard);
 }
 
 .overlay {
@@ -30,6 +30,9 @@
   min-height: 44px;
   place-items: center;
 }
+
+:global(html[data-motion-ready="true"]) .inner > a { animation: logo-settle var(--motion-medium) var(--ease-out) both; }
+@keyframes logo-settle { from { transform: translateY(-8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 .desktopNav {
   display: flex;
@@ -59,10 +62,11 @@
   opacity: 0;
   transform: scaleX(0);
   transform-origin: left;
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out);
 }
 
 .desktopNav a:hover::after,
+.desktopNav a:focus-visible::after,
 .desktopNav a[aria-current="page"]::after {
   opacity: 1;
   transform: scaleX(1);
@@ -113,6 +117,12 @@
 .mobileMenu a:last-child {
   border-bottom: 1px solid var(--color-obsidian);
 }
+
+.mobileMenuOpen a { animation: menu-link-in var(--motion-medium) var(--ease-out) both; }
+.mobileMenuOpen a:nth-child(2) { animation-delay: 50ms; }
+.mobileMenuOpen a:nth-child(3) { animation-delay: 100ms; }
+.mobileMenuOpen a:nth-child(4) { animation-delay: 150ms; }
+@keyframes menu-link-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
 .menuLocation {
   position: absolute;

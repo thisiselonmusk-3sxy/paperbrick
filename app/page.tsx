@@ -1,4 +1,7 @@
-import Link from "next/link";
+import type { CSSProperties } from "react";
+import { HomeServices } from "@/components/HomeServices";
+import { DrawRule } from "@/components/motion/DrawRule";
+import { MotionLink } from "@/components/motion/MotionLink";
 import { ArchitecturalOrbit } from "@/components/immersive/ArchitecturalOrbit";
 import { ProjectFilm } from "@/components/ProjectFilm";
 import { ProjectFigure } from "@/components/ProjectFigure";
@@ -12,11 +15,12 @@ import styles from "./page.module.css";
 const selectedSlugs = ["perumal", "ramkumar", "balaji", "alagiri", "nisha", "tilak"];
 const selected = selectedSlugs.map((slug) => projectsBySlug.get(slug)!);
 
-function IndexedProject({ project, index, sizes }: { project: Project; index: number; sizes?: string }) {
+function IndexedProject({ project, index, sizes, origin = "left" }: { project: Project; index: number; sizes?: string; origin?: "left" | "right" | "bottom" }) {
   return (
-    <div className={styles.indexedProject}>
-      <span className={styles.projectIndex} aria-hidden="true">{String(index).padStart(2, "0")}</span>
-      <ProjectFigure project={project} sizes={sizes} />
+    <div className={styles.indexedProject} data-selected-project>
+      <div className={styles.projectRule}><DrawRule /></div>
+      <span className={styles.projectIndex} aria-hidden="true" data-reveal="text">{String(index).padStart(2, "0")}</span>
+      <ProjectFigure project={project} sizes={sizes} revealOrigin={origin} />
     </div>
   );
 }
@@ -28,56 +32,49 @@ export default function HomePage() {
       <main id="main-content">
         <ArchitecturalOrbit />
 
-        <section className={`${styles.statement} section-space`}>
+        <section className={`${styles.statement} section-space`} data-reveal="section" data-section-progress>
+          <span className={styles.handoffPlane} aria-hidden="true" />
+          <span className={styles.statementDatum} aria-hidden="true" data-reveal="rule" />
           <div className="page-shell">
             <div className={styles.statementGrid}>
-              <div className="mono-label">
+              <div className="mono-label" data-reveal="text">
                 <p>Paper Brick Architects</p>
                 <p>Thoothukudi, Tamil Nadu</p>
               </div>
               <div>
-                <h2>Architecture and interiors shaped around how people live.</h2>
-                <p>Paper Brick Architects designs individual homes and interior environments with attention to proportion, material, light and everyday use.</p>
-                <Link className={styles.textLink} href="/studio">View the studio →</Link>
+                <h2 data-reveal="text">Architecture and interiors shaped around how people live.</h2>
+                <p data-reveal="text" style={{ "--reveal-delay": "120ms" } as CSSProperties}>Paper Brick Architects designs individual homes and interior environments with attention to proportion, material, light and everyday use.</p>
+                <MotionLink className={styles.textLink} href="/studio">View the studio →</MotionLink>
               </div>
             </div>
           </div>
         </section>
 
         <section className={styles.selected} aria-labelledby="selected-work-title">
-          <div className={styles.sectionHeading}>
+          <div className={styles.sectionHeading} data-reveal="text">
             <p className="mono-label">Selected work</p>
             <h2 id="selected-work-title">Projects</h2>
           </div>
           <div className={styles.fullProject}><IndexedProject project={selected[0]} index={1} sizes="100vw" /></div>
           <div className={styles.pair}>
-            <IndexedProject project={selected[1]} index={2} />
-            <IndexedProject project={selected[2]} index={3} />
+            <IndexedProject project={selected[1]} index={2} origin="left" />
+            <IndexedProject project={selected[2]} index={3} origin="right" />
           </div>
-          <div className={styles.fullProject}><IndexedProject project={selected[3]} index={4} sizes="100vw" /></div>
+          <div className={styles.fullProject}><IndexedProject project={selected[3]} index={4} sizes="100vw" origin="bottom" /></div>
           <div className={styles.pair}>
-            <IndexedProject project={selected[4]} index={5} />
-            <IndexedProject project={selected[5]} index={6} />
+            <IndexedProject project={selected[4]} index={5} origin="right" />
+            <IndexedProject project={selected[5]} index={6} origin="left" />
           </div>
-          <div className={styles.archiveLink}><Link href="/work">View all work →</Link></div>
+          <div className={styles.archiveLink}><MotionLink href="/work">View all work →</MotionLink></div>
+          <div className={styles.selectedProgress} data-selected-progress aria-label="Selected work: six projects">01 / 06</div>
         </section>
 
-        <section className={`${styles.services} section-space`} aria-labelledby="services-title">
-          <div className="page-shell">
-            <p className="mono-label">What we do</p>
-            <h2 id="services-title" className="visually-hidden">Services</h2>
-            <ol>
-              <li><span>01</span><Link href="/services#architecture">Architecture</Link></li>
-              <li><span>02</span><Link href="/services#interiors">Interiors</Link></li>
-              <li><span>03</span><Link href="/services#integrated">Architecture + Interiors</Link></li>
-            </ol>
-          </div>
-        </section>
+        <HomeServices />
 
         <section className={styles.filmSection} aria-labelledby="film-title">
-          <div className={styles.filmHeading}>
+          <div className={styles.filmHeading} data-reveal="text">
             <p className="mono-label">Moving study</p>
-            <h2 id="film-title">House / light / material</h2>
+            <div><span className={styles.filmCode}>Film / 01</span><h2 id="film-title">House / light / material</h2></div>
           </div>
           <ProjectFilm />
         </section>

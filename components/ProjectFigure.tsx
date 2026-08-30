@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { displayScope } from "@/content/projects";
 import type { Project } from "@/content/types";
+import { ImageReveal } from "./motion/ImageReveal";
 import styles from "./ProjectFigure.module.css";
 
 type ProjectFigureProps = {
@@ -9,6 +10,8 @@ type ProjectFigureProps = {
   priority?: boolean;
   sizes?: string;
   showDetail?: boolean;
+  revealOrigin?: "left" | "right" | "top" | "bottom";
+  parallax?: boolean;
 };
 
 export function ProjectFigure({
@@ -16,22 +19,27 @@ export function ProjectFigure({
   priority = false,
   sizes = "(max-width: 767px) 100vw, 50vw",
   showDetail = true,
+  revealOrigin = "left",
+  parallax = true,
 }: ProjectFigureProps) {
   const image = project.coverImage;
   return (
     <figure className={styles.figure} data-category={project.category} data-status={project.status}>
-      <Link href={`/work/${project.slug}`} aria-label={`View ${project.name} project`}>
-        <Image
-          src={image.src}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          sizes={sizes}
-          priority={priority}
-          className={styles.image}
-        />
-      </Link>
-      <figcaption className={styles.caption}>
+      <ImageReveal origin={revealOrigin} parallax={parallax} parallaxStrength={22} className={styles.aperture}>
+        <Link href={`/work/${project.slug}`} aria-label={`View ${project.name} project`}>
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            sizes={sizes}
+            priority={priority}
+            className={styles.image}
+          />
+          <span className={styles.viewLabel}>View project <i aria-hidden="true">↗</i></span>
+        </Link>
+      </ImageReveal>
+      <figcaption className={styles.caption} data-reveal="stagger">
         <div>
           <span>{project.name}</span>
           <span>{project.location}</span>

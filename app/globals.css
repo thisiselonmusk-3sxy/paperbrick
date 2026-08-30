@@ -147,6 +147,94 @@ ol {
   padding-block: clamp(var(--spacing-100), 12vw, var(--spacing-180));
 }
 
+html[data-motion-ready="true"] [data-reveal][data-motion-state="waiting"] {
+  will-change: transform, opacity, clip-path;
+}
+
+html[data-motion-ready="true"] [data-reveal="text"][data-motion-state="waiting"] {
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(var(--reveal-distance));
+}
+
+html[data-motion-ready="true"] [data-reveal="text"] {
+  transition: clip-path var(--motion-slow) var(--ease-cinematic), transform var(--motion-slow) var(--ease-cinematic);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html[data-motion-ready="true"] [data-reveal="image"] {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(var(--motion-clip-top, 0) var(--motion-clip-right, 0) var(--motion-clip-bottom, 0) var(--motion-clip-left, 0));
+  transition: clip-path var(--motion-cinematic) var(--ease-cinematic);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html[data-motion-ready="true"] [data-reveal="image"][data-motion-state="waiting"] {
+  clip-path: inset(
+    var(--motion-wait-top, 0)
+    var(--motion-wait-right, 100%)
+    var(--motion-wait-bottom, 0)
+    var(--motion-wait-left, 0)
+  );
+}
+
+html[data-motion-ready="true"] [data-reveal="image"][data-reveal-origin="right"][data-motion-state="waiting"] {
+  clip-path: inset(0 0 0 100%);
+}
+
+html[data-motion-ready="true"] [data-reveal="image"][data-reveal-origin="bottom"][data-motion-state="waiting"] {
+  clip-path: inset(100% 0 0 0);
+}
+
+html[data-motion-ready="true"] [data-reveal="image"][data-reveal-origin="top"][data-motion-state="waiting"] {
+  clip-path: inset(0 0 100% 0);
+}
+
+html[data-motion-ready="true"] [data-reveal="image"] img,
+html[data-motion-ready="true"] [data-reveal="image"] video {
+  transform: translate3d(0, var(--parallax-y, 0), 0) scale(1);
+  transition: transform var(--motion-cinematic) var(--ease-cinematic);
+}
+
+html[data-motion-ready="true"] [data-reveal="image"][data-motion-state="waiting"] img,
+html[data-motion-ready="true"] [data-reveal="image"][data-motion-state="waiting"] video {
+  transform: translate3d(0, var(--parallax-y, 0), 0) scale(var(--image-settle-scale));
+}
+
+html[data-motion-ready="true"] [data-reveal="rule"] {
+  transform-origin: var(--reveal-origin, left);
+  transition: transform var(--motion-medium) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html[data-motion-ready="true"] [data-reveal="rule"][data-motion-state="waiting"] {
+  transform: scaleX(0);
+}
+
+html[data-motion-ready="true"] [data-reveal="section"] {
+  transition: transform var(--motion-slow) var(--ease-cinematic);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html[data-motion-ready="true"] [data-reveal="section"][data-motion-state="waiting"] {
+  transform: translateY(var(--reveal-distance));
+}
+
+html[data-motion-ready="true"] [data-reveal="stagger"] > * {
+  transition: transform var(--motion-medium) var(--ease-out);
+}
+
+html[data-motion-ready="true"] [data-reveal="stagger"][data-motion-state="waiting"] > * {
+  transform: translateY(14px);
+}
+
+html[data-motion-ready="true"] [data-reveal="stagger"] > :nth-child(2) { transition-delay: 50ms; }
+html[data-motion-ready="true"] [data-reveal="stagger"] > :nth-child(3) { transition-delay: 100ms; }
+html[data-motion-ready="true"] [data-reveal="stagger"] > :nth-child(4) { transition-delay: 150ms; }
+html[data-motion-ready="true"] [data-reveal="stagger"] > :nth-child(5) { transition-delay: 200ms; }
+html[data-motion-ready="true"] [data-reveal="stagger"] > :nth-child(6) { transition-delay: 250ms; }
+html[data-motion-ready="true"] [data-reveal="stagger"] > :nth-child(n+7) { transition-delay: 300ms; }
+
 @media (max-width: 767px) {
   .page-shell {
     width: min(calc(100% - 32px), var(--page-max-width));
@@ -154,6 +242,15 @@ ol {
 
   .section-space {
     padding-block: clamp(72px, 20vw, 96px);
+  }
+
+  html[data-motion-ready="true"] [data-reveal="text"][data-motion-state="waiting"],
+  html[data-motion-ready="true"] [data-reveal="section"][data-motion-state="waiting"] {
+    transform: translateY(18px);
+  }
+
+  html[data-motion-ready="true"] [data-reveal] {
+    transition-duration: var(--motion-medium);
   }
 }
 
@@ -177,5 +274,15 @@ ol {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal],
+  [data-reveal] > *,
+  [data-reveal] img,
+  [data-reveal] video {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

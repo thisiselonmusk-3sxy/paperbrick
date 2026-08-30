@@ -2,7 +2,9 @@
   min-width: 0;
 }
 
+.aperture,
 .figure a {
+  position: relative;
   display: block;
   overflow: hidden;
 }
@@ -11,13 +13,46 @@
   width: 100%;
   height: auto;
   border-radius: 0;
-  transition: opacity 200ms ease, transform 250ms ease;
+  transition: filter var(--motion-fast) var(--ease-standard), transform var(--motion-medium) var(--ease-out);
 }
 
-.figure a:hover .image {
-  opacity: 0.9;
-  transform: scale(1.01);
+.figure a::after {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.08);
+  content: "";
+  pointer-events: none;
+  transition: background-color var(--motion-fast) var(--ease-standard);
 }
+
+.figure a:hover::after,
+.figure a:focus-visible::after { background: transparent; }
+
+.figure a:hover .image,
+.figure a:focus-visible .image { transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.012); }
+
+.viewLabel {
+  position: absolute;
+  right: var(--spacing-12);
+  bottom: var(--spacing-12);
+  z-index: 1;
+  padding: 8px 10px;
+  background: var(--surface-dark);
+  color: var(--color-bone);
+  font-family: var(--font-matter-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out);
+}
+
+.viewLabel i { display: inline-block; font-style: normal; transition: transform var(--motion-fast) var(--ease-out); }
+.figure a:hover .viewLabel,
+.figure a:focus-visible .viewLabel { opacity: 1; transform: translateY(0); }
+.figure a:hover .viewLabel i,
+.figure a:focus-visible .viewLabel i { transform: translate(4px, -2px); }
 
 .caption {
   display: grid;
@@ -48,4 +83,7 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-4);
   }
+
+  .viewLabel { display: none; }
+  .figure a::after { display: none; }
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter } from "next/font/google";
+import { MotionController } from "@/components/motion/MotionController";
+import { PageEntrance } from "@/components/motion/PageEntrance";
 import { SITE_URL, siteSettings } from "@/content/site";
 import "./globals.css";
 
@@ -49,6 +51,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable}`} data-scroll-behavior="smooth">
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
+        <MotionController />
+        <PageEntrance />
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </body>

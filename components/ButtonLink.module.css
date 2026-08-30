@@ -1,4 +1,6 @@
 .button {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -13,12 +15,13 @@
   letter-spacing: 0.02em;
   line-height: 1.2;
   text-transform: uppercase;
-  transition: opacity 180ms ease;
+  isolation: isolate;
+  transition: color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard);
 }
 
-.button:hover {
-  opacity: 0.58;
-}
+.button::before { position: absolute; z-index: -1; inset: 0; background: currentColor; content: ""; opacity: 0.12; transform: translateX(-102%); transition: transform var(--motion-fast) var(--ease-out); }
+.button:hover::before,
+.button:focus-visible::before { transform: translateX(0); }
 
 .dark {
   border-color: var(--surface-dark);

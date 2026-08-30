@@ -1,4 +1,6 @@
 .footer {
+  position: relative;
+  overflow: hidden;
   background: var(--surface-dark);
   color: var(--color-bone);
   font-family: var(--font-matter-mono);
@@ -7,7 +9,11 @@
   text-transform: uppercase;
 }
 
+.wordmark { position: absolute; right: -2vw; bottom: -0.16em; left: -2vw; white-space: nowrap; color: #6f6f6f; font-family: var(--font-matter); font-size: clamp(88px, 17vw, 260px); line-height: 0.72; letter-spacing: -0.07em; text-align: center; text-transform: uppercase; transform: translateX(calc((1 - var(--section-progress, 1)) * -3vw)); }
+
 .grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 48px;
@@ -40,6 +46,8 @@
 }
 
 .legal {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid rgba(255, 255, 255, 0.35);

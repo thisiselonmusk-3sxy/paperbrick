@@ -1,7 +1,14 @@
 .cta {
+  position: relative;
+  overflow: hidden;
   border-top: 1px solid var(--color-obsidian);
   padding-block: clamp(var(--spacing-100), 12vw, var(--spacing-180));
+  background: var(--surface-dark);
+  color: var(--color-bone);
+  isolation: isolate;
 }
+
+.surface { position: absolute; z-index: -1; inset: 0; background: var(--surface-dark); }
 
 .inner {
   width: min(calc(100% - 48px), var(--page-max-width));
@@ -38,6 +45,8 @@
   font-size: var(--text-ui);
   text-transform: uppercase;
 }
+
+.cta :global(a[class*="button"]) { border-color: var(--color-bone); color: var(--color-bone); }
 
 @media (max-width: 767px) {
   .inner {

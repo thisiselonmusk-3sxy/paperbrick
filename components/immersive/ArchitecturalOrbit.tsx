@@ -52,7 +52,14 @@ export function ArchitecturalOrbit() {
     if (!canvas || !section) return;
 
     let cancelled = false;
-    const initializationFrame = requestAnimationFrame(async () => {
+    let initializationFrame = 0;
+    let initializationStarted = false;
+    section.dataset.renderer = "canvas2d";
+
+    const initializeScene = async () => {
+      if (cancelled || initializationStarted) return;
+      initializationStarted = true;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const support = detectWebGLSupport();
       section.dataset.renderer = support ?? "canvas2d";
       if (!support) {
@@ -72,7 +79,15 @@ export function ArchitecturalOrbit() {
         section.dataset.renderer = "canvas2d";
         setWebglFailed(true);
       }
-    });
+    };
+
+    const requestInitialization = () => {
+      if (cancelled || initializationStarted || initializationFrame) return;
+      initializationFrame = requestAnimationFrame(() => {
+        initializationFrame = 0;
+        void initializeScene();
+      });
+    };
 
     let ticking = false;
     const updateProgress = () => {
@@ -84,12 +99,14 @@ export function ArchitecturalOrbit() {
       ticking = false;
     };
     const onScroll = () => {
+      requestInitialization();
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(updateProgress);
       }
     };
     const onPointerMove = (event: PointerEvent) => {
+      requestInitialization();
       sceneRef.current?.setPointer((event.clientX / window.innerWidth) * 2 - 1, (event.clientY / window.innerHeight) * 2 - 1);
     };
     const pointerParallax = window.matchMedia("(pointer: fine)").matches;
@@ -111,13 +128,20 @@ export function ArchitecturalOrbit() {
       sectionVisible = entry.isIntersecting;
       updateActivity();
     }, { rootMargin: "25% 0px" });
+    let resizeFrame = 0;
     const onResize = () => {
-      sceneRef.current?.resize();
-      updateProgress();
+      if (resizeFrame) return;
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = 0;
+        sceneRef.current?.resize();
+        updateProgress();
+      });
     };
+    const visualViewport = window.visualViewport;
     observer.observe(section);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
+    visualViewport?.addEventListener("resize", onResize);
     if (pointerParallax) window.addEventListener("pointermove", onPointerMove, { passive: true });
     canvas.addEventListener("webglcontextlost", onContextLost);
     canvas.addEventListener("webglcontextrestored", onContextRestored);
@@ -127,9 +151,11 @@ export function ArchitecturalOrbit() {
     return () => {
       cancelled = true;
       cancelAnimationFrame(initializationFrame);
+      cancelAnimationFrame(resizeFrame);
       observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
+      visualViewport?.removeEventListener("resize", onResize);
       if (pointerParallax) window.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("webglcontextlost", onContextLost);
       canvas.removeEventListener("webglcontextrestored", onContextRestored);

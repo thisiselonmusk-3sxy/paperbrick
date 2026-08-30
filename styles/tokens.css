@@ -26,6 +26,17 @@
   --spacing-100: 100px;
   --spacing-180: 180px;
 
+  --motion-instant: 160ms;
+  --motion-fast: 240ms;
+  --motion-medium: 520ms;
+  --motion-slow: 900ms;
+  --motion-cinematic: 1200ms;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-distance: 28px;
+  --image-settle-scale: 1.035;
+
   --page-max-width: 960px;
   --radius-sm: 3px;
   --radius-tags: 0px;

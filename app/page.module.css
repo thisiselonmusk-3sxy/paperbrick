@@ -1,3 +1,12 @@
+.statement {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-ash);
+  isolation: isolate;
+}
+
+.handoffPlane { position: absolute; z-index: -1; inset: 14% 0 0; background: var(--surface-paper); transform: translateY(calc((1 - var(--section-progress, 1)) * 12%)); }
+.statementDatum { position: absolute; top: 0; bottom: 0; left: 25%; width: 1px; background: rgba(0, 0, 0, 0.28); transform-origin: top; }
 .statementGrid {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -58,13 +67,15 @@
 
 .projectIndex {
   display: block;
-  border-top: 1px solid var(--color-obsidian);
   padding: var(--spacing-8) 0 var(--spacing-12);
   font-family: var(--font-matter-mono);
   font-size: var(--text-caption);
   letter-spacing: var(--tracking-caption);
   line-height: var(--leading-caption);
 }
+
+.projectRule { height: 1px; background: transparent; }
+.projectRule > span { display: block; width: 100%; height: 1px; background: var(--color-obsidian); }
 
 .pair {
   display: grid;
@@ -80,43 +91,22 @@
   text-align: right;
 }
 
-.services {
-  border-top: 1px solid var(--color-obsidian);
-}
-
-.services ol {
-  margin-top: 64px;
-  border-top: 1px solid var(--color-obsidian);
-}
-
-.services li {
-  display: grid;
-  grid-template-columns: 88px 1fr;
-  align-items: center;
-  border-bottom: 1px solid var(--color-obsidian);
-  padding-block: var(--spacing-24);
-  text-transform: uppercase;
-}
-
-.services li > span {
-  font-family: var(--font-matter-mono);
-  font-size: var(--text-caption);
-}
-
-.services li a {
-  font-size: clamp(28px, 5vw, 56px);
-  line-height: 1;
-}
-
 .filmSection {
   padding-bottom: var(--spacing-180);
 }
+
+.filmHeading > div { display: flex; align-items: baseline; gap: var(--spacing-24); }
+.filmCode { font-family: var(--font-matter-mono); font-size: var(--text-caption); letter-spacing: var(--tracking-caption); text-transform: uppercase; }
+.selectedProgress { position: absolute; right: 24px; margin-top: 54px; font-family: var(--font-matter-mono); font-size: var(--text-caption); letter-spacing: var(--tracking-caption); }
+.selected { position: relative; }
 
 @media (max-width: 767px) {
   .statementGrid {
     grid-template-columns: 1fr;
     gap: 48px;
   }
+
+  .statementDatum { left: 24%; }
 
   .statementGrid h2 {
     font-size: clamp(34px, 11vw, 48px);
@@ -155,17 +145,15 @@
     padding-bottom: 96px;
   }
 
-  .services li {
-    grid-template-columns: 52px 1fr;
-  }
-
   .textLink,
-  .archiveLink a,
-  .services li a {
+  .archiveLink a {
     display: inline-flex;
     min-height: 44px;
     align-items: center;
   }
+
+  .selectedProgress { display: none; }
+  .filmHeading > div { align-items: flex-start; flex-direction: column; gap: var(--spacing-4); }
 }
 
 @media (max-width: 380px) {
@@ -173,12 +161,4 @@
     font-size: clamp(31px, 10.5vw, 40px);
   }
 
-  .services li {
-    grid-template-columns: 38px 1fr;
-    gap: 8px;
-  }
-
-  .services li a {
-    font-size: clamp(24px, 8.5vw, 32px);
-  }
 }
