@@ -12,15 +12,34 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work" },
 };
 
+const builtUpAreas = projects.flatMap((project) => project.builtUpAreaSqFt ?? []);
+const formatArea = new Intl.NumberFormat("en-IN").format;
+const areaRange = `${formatArea(Math.min(...builtUpAreas))}–${formatArea(Math.max(...builtUpAreas))} sq ft`;
+
+const practiceMetrics = [
+  { label: "Project scale", value: areaRange },
+  { label: "Integrated scope", value: "Architecture + Interiors" },
+  { label: "Design focus", value: "Homes + Healthcare" },
+  { label: "Regional reach", value: "Thoothukudi → Trichy" },
+] as const;
+
 export default function WorkPage() {
   return (
     <>
       <SiteHeader />
       <main id="main-content" className={styles.main}>
         <header className={styles.intro}>
-          <p className="mono-label">Archive / 13 projects</p>
+          <p className="mono-label">Project archive</p>
           <h1>Work</h1>
-          <p>Architecture and interior projects across Thoothukudi, Tiruchendur, Trichy and Tirunelveli.</p>
+          <p className={styles.introCopy}>Explore spaces developed as complete environments—from building form and climate response to material, light and interior detail.</p>
+          <dl className={styles.metrics} aria-label="Practice capabilities">
+            {practiceMetrics.map((metric) => (
+              <div key={metric.label}>
+                <dt>{metric.label}</dt>
+                <dd>{metric.value}</dd>
+              </div>
+            ))}
+          </dl>
         </header>
         <section className={styles.archive} aria-label="Project archive">
           <WorkArchive projects={projects} />

@@ -25,6 +25,12 @@
   margin-inline: auto;
 }
 
+.inner > a {
+  display: grid;
+  min-height: 44px;
+  place-items: center;
+}
+
 .desktopNav {
   display: flex;
   align-items: center;

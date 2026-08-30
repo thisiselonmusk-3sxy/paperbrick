@@ -1,38 +1,32 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArchitecturalOrbit } from "@/components/immersive/ArchitecturalOrbit";
 import { ProjectFilm } from "@/components/ProjectFilm";
 import { ProjectFigure } from "@/components/ProjectFigure";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { StartProjectCTA } from "@/components/StartProjectCTA";
 import { projectsBySlug } from "@/content/projects";
+import type { Project } from "@/content/types";
 import styles from "./page.module.css";
 
 const selectedSlugs = ["perumal", "ramkumar", "balaji", "alagiri", "nisha", "tilak"];
 const selected = selectedSlugs.map((slug) => projectsBySlug.get(slug)!);
-const hero = selected[0];
+
+function IndexedProject({ project, index, sizes }: { project: Project; index: number; sizes?: string }) {
+  return (
+    <div className={styles.indexedProject}>
+      <span className={styles.projectIndex} aria-hidden="true">{String(index).padStart(2, "0")}</span>
+      <ProjectFigure project={project} sizes={sizes} />
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
     <>
       <SiteHeader overlay />
       <main id="main-content">
-        <section className={styles.hero} data-hero aria-labelledby="home-title">
-          <h1 id="home-title" className="visually-hidden">Paper Brick Architects</h1>
-          <Image
-            src={hero.coverImage.src}
-            alt={hero.coverImage.alt}
-            fill
-            priority
-            sizes="100vw"
-            className={styles.heroImage}
-          />
-          <div className={styles.heroCaption}>
-            <span>{hero.name}</span>
-            <span>{hero.location}</span>
-            <span>Architecture + Interiors</span>
-          </div>
-        </section>
+        <ArchitecturalOrbit />
 
         <section className={`${styles.statement} section-space`}>
           <div className="page-shell">
@@ -53,17 +47,17 @@ export default function HomePage() {
         <section className={styles.selected} aria-labelledby="selected-work-title">
           <div className={styles.sectionHeading}>
             <p className="mono-label">Selected work</p>
-            <h2 id="selected-work-title">Projects / 01—06</h2>
+            <h2 id="selected-work-title">Projects</h2>
           </div>
-          <div className={styles.fullProject}><ProjectFigure project={selected[0]} sizes="100vw" /></div>
+          <div className={styles.fullProject}><IndexedProject project={selected[0]} index={1} sizes="100vw" /></div>
           <div className={styles.pair}>
-            <ProjectFigure project={selected[1]} />
-            <ProjectFigure project={selected[2]} />
+            <IndexedProject project={selected[1]} index={2} />
+            <IndexedProject project={selected[2]} index={3} />
           </div>
-          <div className={styles.fullProject}><ProjectFigure project={selected[3]} sizes="100vw" /></div>
+          <div className={styles.fullProject}><IndexedProject project={selected[3]} index={4} sizes="100vw" /></div>
           <div className={styles.pair}>
-            <ProjectFigure project={selected[4]} />
-            <ProjectFigure project={selected[5]} />
+            <IndexedProject project={selected[4]} index={5} />
+            <IndexedProject project={selected[5]} index={6} />
           </div>
           <div className={styles.archiveLink}><Link href="/work">View all work →</Link></div>
         </section>

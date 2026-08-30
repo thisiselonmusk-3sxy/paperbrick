@@ -25,3 +25,9 @@
   background: var(--surface-dark);
   color: var(--color-bone);
 }
+
+@media (pointer: coarse) {
+  .button {
+    min-height: 44px;
+  }
+}

@@ -136,6 +136,12 @@
     gap: 48px;
   }
 
+  .back a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
   .details dl {
     grid-column: 1;
   }
@@ -163,5 +169,8 @@
     right: var(--spacing-12);
     bottom: var(--spacing-12);
     left: var(--spacing-12);
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--spacing-4);
   }
 }

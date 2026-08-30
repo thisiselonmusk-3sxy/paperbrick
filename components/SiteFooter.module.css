@@ -62,4 +62,22 @@
     gap: var(--spacing-8);
     padding-inline: 16px;
   }
+
+  .grid a,
+  .legal a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .brand {
+    grid-column: 1;
+  }
 }

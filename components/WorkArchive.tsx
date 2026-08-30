@@ -38,7 +38,7 @@ export function WorkArchive({ projects }: { projects: Project[] }) {
         ))}
       </div>
       <p className="visually-hidden" aria-live="polite">
-        Showing {filtered.length} {filtered.length === 1 ? "project" : "projects"}.
+        {filter === "All" ? "All projects shown." : `${filter} projects shown.`}
       </p>
       <div className={styles.grid}>
         {filtered.map((project, index) => (

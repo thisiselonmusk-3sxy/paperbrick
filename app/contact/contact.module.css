@@ -98,4 +98,10 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-24);
   }
+
+  .contactGrid a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
 }
